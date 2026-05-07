@@ -4,6 +4,7 @@ namespace App\Filament\Outlet\Resources\Accounting\Expenses\Schemas;
 
 use App\Models\Accounting\AccountLedger;
 use Closure;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -25,7 +26,7 @@ class ExpenseForm
                     ->schema([
                         Group::make()
                             ->columnSpanFull()
-                            ->columns(3)
+                            ->columns(2)
                             ->schema([
                                 Select::make('account_id')
                                     ->relationship('account', 'name')
@@ -58,17 +59,22 @@ class ExpenseForm
                                             ]),
                                     ])
                                     ->nullable(),
+                                DatePicker::make('date')
+                                    ->nullable(),
                             ]),
                         TextInput::make('amount')
                             ->columnSpanFull()
                             ->required()
                             ->helperText(function (Get $get) {
                                 $accountId = $get('account_id');
-                                if (!$accountId) return;
+                                if (! $accountId) {
+                                    return;
+                                }
                                 $balance = AccountLedger::getBalanceForAccountId($accountId);
-                                return 'Account balance: ' . currency_format($balance);
+
+                                return 'Account balance: '.currency_format($balance);
                             })
-                            ->rules(fn(Get $get, ?Model $record) => [
+                            ->rules(fn (Get $get, ?Model $record) => [
                                 'min:0',
                                 function (string $attribute, $value, Closure $fail) use ($get, $record) {
                                     $accountId = $get('account_id');
@@ -81,10 +87,10 @@ class ExpenseForm
                                         }
 
                                         if ($value > $accountBalance) {
-                                            $fail("Insufficient account balance to make this expense.");
+                                            $fail('Insufficient account balance to make this expense.');
                                         }
                                     }
-                                }
+                                },
                             ])
                             ->calculator()
                             ->currency(),

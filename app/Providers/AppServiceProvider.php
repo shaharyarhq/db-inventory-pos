@@ -25,6 +25,7 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -334,7 +335,7 @@ class AppServiceProvider extends ServiceProvider
                 ActionGroup::make([
                     ...$actions,
                 ]),
-            ]);
+            ], RecordActionsPosition::BeforeColumns);
         });
 
         Select::configureUsing(function (Select $select) {

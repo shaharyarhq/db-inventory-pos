@@ -228,8 +228,15 @@ trait HasSalesWidgetFilters
             $query->where('outlet_id', $this->getOutletId());
         }
 
-        if ($this->getStartDate() && $this->getEndDate()) {
-            $query->whereBetween('created_at', [
+        // if ($this->getStartDate() && $this->getEndDate()) {
+        //     $query->whereBetween('created_at', [
+        //         $this->getStartDate(),
+        //         $this->getEndDate(),
+        //     ]);
+        // }
+
+            if ($this->getStartDate() && $this->getEndDate()) {
+            $query->whereBetween('date', [
                 $this->getStartDate(),
                 $this->getEndDate(),
             ]);

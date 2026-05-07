@@ -4,11 +4,6 @@ namespace App\Models\Accounting;
 
 use App\BelongsToOutlet;
 use App\Enums\TransactionType;
-use App\Models\Accounting\Account;
-use App\Models\Accounting\AccountLedger;
-use App\Models\Accounting\ExpenseCategory;
-use App\Models\Accounting\ExpenseLedger;
-use App\Models\Accounting\PaymentMethod;
 use App\Models\Traits\HasDocumentNumber;
 use App\Models\Traits\HasTransactionType;
 use App\Models\Traits\ResolvesDocumentNumber;
@@ -25,6 +20,7 @@ class Expense extends Model
         'account_id',
         'expense_category_id',
         'attachments',
+        'date',
         'payment_method_id',
         'amount',
         'description',
@@ -70,26 +66,27 @@ class Expense extends Model
             AccountLedger::updateOrCreate(
                 [
                     'source_type' => Expense::class,
-                    'source_id'   => $expense->id,
+                    'source_id' => $expense->id,
                 ],
                 [
-                    'account_id'       => $expense->account_id,
-                    'amount'           => -$expense->amount,
+                    'account_id' => $expense->account_id,
+                    'amount' => -$expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,
-                    'remarks'          => "Expense Recorded: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'" . ($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    'remarks' => "Expense Recorded: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'".($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
                 ]
             );
 
             ExpenseLedger::updateOrCreate(
                 [
                     'source_type' => Expense::class,
-                    'source_id'   => $expense->id,
+                    'source_id' => $expense->id,
                 ],
                 [
-                    'expense_id'       => $expense->id,
-                    'amount'           => $expense->amount,
+                    'date' => $expense->date ?? $expense->created_at,
+                    'expense_id' => $expense->id,
+                    'amount' => $expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,
-                    'remarks'          => "Expense Created: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'" . ($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    'remarks' => "Expense Created: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'".($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
                 ]
             );
         });

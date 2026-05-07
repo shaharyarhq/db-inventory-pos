@@ -3,7 +3,6 @@
 namespace App\Models\Accounting;
 
 use App\BelongsToOutlet;
-use App\Models\Accounting\Account;
 use App\Models\Accounting\Expense;
 use App\Models\Traits\HasTransactionType;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +20,7 @@ class ExpenseLedger extends Model
         'source_type',
         'transaction_type',
         'remarks',
+        'date',
         'outlet_id'
     ];
 

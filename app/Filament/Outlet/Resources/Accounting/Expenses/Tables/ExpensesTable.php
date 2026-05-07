@@ -40,6 +40,10 @@ class ExpensesTable
                     ->desc(),
                 // TextColumn::make('outlet.name')
                 //     ->searchable(),
+                TextColumn::make('date')
+                    ->dateTime(app_date_format())
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
