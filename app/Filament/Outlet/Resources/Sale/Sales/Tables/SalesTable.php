@@ -15,7 +15,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Toggle;
 use Filament\Support\Enums\Width;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
@@ -34,18 +34,18 @@ class SalesTable
                     ->copyable(),
                 TextColumn::make('customer.name')
                     ->url(
-                        filament()->auth()->user()->isSuperAdmin() ? fn($state) => CustomerResource::getUrl('index', [
-                            'search' => $state
+                        filament()->auth()->user()->isSuperAdmin() ? fn ($state) => CustomerResource::getUrl('index', [
+                            'search' => $state,
                         ], panel: PanelId::ADMIN->value) : '',
                         true
                     )
-                    ->copyable(!filament()->auth()->user()->isSuperAdmin()),
+                    ->copyable(! filament()->auth()->user()->isSuperAdmin()),
                 TextColumn::make('customer.area.name')
                     ->copyable(),
                 TextColumn::make('customer.city.name')
                     ->copyable(),
                 TextColumn::make('total')
-                    ->summarize(Sum::make()->formatStateUsing(fn($state) => currency_format($state)))
+                    ->summarize(Sum::make()->formatStateUsing(fn ($state) => currency_format($state)))
                     ->currency(),
                 TextColumn::make('discount_type')
                     ->copyable()
@@ -53,8 +53,8 @@ class SalesTable
                     ->badge(),
                 TextColumn::make('discount_value')
                     ->numeric()
-                    ->prefix(fn($record) => $record->discount_type === DiscountType::FIXED ? app_currency_symbol() : '')
-                    ->suffix(fn($record) => $record->discount_type === DiscountType::PERCENT ? ' %' : '')
+                    ->prefix(fn ($record) => $record->discount_type === DiscountType::FIXED ? app_currency_symbol() : '')
+                    ->suffix(fn ($record) => $record->discount_type === DiscountType::PERCENT ? ' %' : '')
                     ->copyable(),
                 TextColumn::make('discount_amount')
                     ->copyable()
@@ -136,29 +136,61 @@ class SalesTable
                 Action::make('create_sale_return')
                     ->icon('heroicon-o-arrow-uturn-left')
                     ->url(function (Model $record) {
-                        return SaleReturnResource::getUrl('create',  ['sale_id' => $record->id]);
+                        return SaleReturnResource::getUrl('create', ['sale_id' => $record->id]);
                     }, true),
                 Action::make('view_sale_return')
                     ->icon('heroicon-o-arrow-uturn-left')
                     ->url(function (Model $record) {
-                        return SaleReturnResource::getUrl('index',  ['filters' => [
+                        return SaleReturnResource::getUrl('index', ['filters' => [
                             'sale' => [
-                                'value' => $record?->id
-                            ]
+                                'value' => $record?->id,
+                            ],
                         ]]);
                     }, true),
-                PdfDownloadAction::make('partials.pdf.sale', fn(Model $record) => $record->sale_number)
+                PdfDownloadAction::make('partials.pdf.sale', fn (Model $record) => $record->sale_number)
                     ->download()
                     ->modalWidth(Width::Medium)
                     ->schema([
-                        Toggle::make('group_variants')->default(true)
+                        Toggle::make('group_variants')->default(true),
                     ]),
-                PdfDownloadAction::make('partials.pdf.sale', fn(Model $record) => $record->sale_number)
+                PdfDownloadAction::make('partials.pdf.sale', fn (Model $record) => $record->sale_number)
                     ->print()
                     ->modalWidth(Width::Medium)
                     ->schema([
-                        Toggle::make('group_variants')->default(true)
+                        Toggle::make('group_variants')->default(true),
                     ]),
+                Action::make('open_pdf_in_new_tab')
+                    ->icon(Heroicon::ArrowUpRight)
+                    ->modalWidth(Width::Medium)
+                    ->schema([
+                        Toggle::make('group_variants')->default(true),
+                    ])
+                    ->action(function (Model $record, array $data, $livewire) {
+                        $url = route('print.pdf', [
+                            'model' => $record::class,
+                            'id' => $record->id,
+                            'view' => 'partials.pdf.sale',
+                            'params' => $data,
+                        ]);
+
+                        $livewire->js("window.open('{$url}', '_blank')");
+                    }),
+                Action::make('open_pdf_popup')
+                    ->icon(Heroicon::ArrowUpRight)
+                    ->modalWidth(Width::Medium)
+                    ->schema([
+                        Toggle::make('group_variants')->default(true),
+                    ])
+                    ->action(function (Model $record, array $data, $livewire) {
+                        $url = route('print.pdf', [
+                            'model' => $record::class,
+                            'id' => $record->id,
+                            'view' => 'partials.pdf.sale',
+                            'params' => $data,
+                        ]);
+
+                        $livewire->js("window.open('{$url}', '_blank', 'width=900,height=700,scrollbars=yes')");
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
