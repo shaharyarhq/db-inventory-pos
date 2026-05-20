@@ -4,8 +4,10 @@ namespace App\Models\Inventory;
 
 use App\Enums\TransactionType;
 use App\Models\Master\Product;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\ResolvesDocumentNumber;
+use Filament\Notifications\Notification;
+use Filament\Support\Exceptions\Halt;
+use Illuminate\Database\Eloquent\Model;
 
 class InventoryAdjustmentItem extends Model
 {
@@ -39,6 +41,15 @@ class InventoryAdjustmentItem extends Model
         static::saved(function ($item) {
 
             $avgRate =  $item->product->getAvgRateAsOf($item->created_at) ?: (float) $item->product->cost_price;
+
+            if ($avgRate <= 0) {
+                Notification::make()
+                    ->title('Average rate is zero or negative')
+                    ->body('The average rate for the product: ' . $item->product->name . ' is zero or negative. Please ensure the product has cost price defined.')
+                    ->danger()
+                    ->send();
+                throw new Halt();
+            }
 
             $value = $item->qty * $avgRate;
 

@@ -60,7 +60,7 @@ class ProductForm
                                                     ->required()
                                                     ->numeric()
                                                     ->currency()
-                                                    ->minValue(0),
+                                                    ->minValue(0.0001),
                                                 TextInput::make('selling_price')
                                                     ->required()
                                                     ->numeric()

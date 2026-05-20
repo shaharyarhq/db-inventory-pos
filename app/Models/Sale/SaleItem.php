@@ -10,6 +10,8 @@ use App\Models\Master\Unit;
 use App\Models\Sale\Sale;
 use App\Models\Traits\HasTransactionType;
 use App\Models\Traits\ResolvesDocumentNumber;
+use Filament\Notifications\Notification;
+use Filament\Support\Exceptions\Halt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -89,6 +91,17 @@ class SaleItem extends Model
 
         static::saved(function ($item) {
             $avgRate = $item->cost;
+
+            if ($avgRate <= 0) {
+                Notification::make()
+                    ->title('Cost is zero or negative')
+                    ->body('Product: ' . $item->product->name . ' has zero or negative cost (avg rate).')
+                    ->danger()
+                    ->send();
+
+                throw new Halt();
+            }
+
             $product = $item->product;
 
             $baseQty = $item->product->toBaseQty($item->qty, $item->unit_id);
