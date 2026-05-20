@@ -95,7 +95,7 @@ class SaleItem extends Model
             if ($avgRate <= 0) {
                 Notification::make()
                     ->title('Cost is zero or negative')
-                    ->body('Product: ' . $item->product->name . ' has zero or negative cost (avg rate).')
+                    ->body('Product: ' . $item->product->full_name . ' has zero or negative cost (avg rate).')
                     ->danger()
                     ->send();
 

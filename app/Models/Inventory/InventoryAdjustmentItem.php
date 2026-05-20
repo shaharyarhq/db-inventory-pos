@@ -45,7 +45,7 @@ class InventoryAdjustmentItem extends Model
             if ($avgRate <= 0) {
                 Notification::make()
                     ->title('Average rate is zero or negative')
-                    ->body('The average rate for the product: ' . $item->product->name . ' is zero or negative. Please ensure the product has cost price defined.')
+                    ->body('The average rate for the product: ' . $item->product->full_name . ' is zero or negative. Please ensure the product has cost price defined.')
                     ->danger()
                     ->send();
                 throw new Halt();
