@@ -36,9 +36,9 @@ class SaleReturnForm
 
         return $schema
             ->components([
-                Hidden::make('products')
-                    ->afterStateHydrated(fn(Set $set) => $set('products', $productsKeyedArray))
-                    ->dehydrated(false),
+                // Hidden::make('products')
+                //     ->afterStateHydrated(fn(Set $set) => $set('products', $productsKeyedArray))
+                //     ->dehydrated(false),
 
                 Section::make()
                     ->columnSpanFull()
@@ -261,52 +261,52 @@ class SaleReturnForm
 
                                 return in_array($value, $selected) && $state != $value;
                             })
-                            ->afterStateUpdatedJs(<<<'JS'
-                                const productId = $get('product_id');
-                                const customerId = $get('../../customer_id');
-                                const products = $get('../../products') ?? {};
+                            // ->afterStateUpdatedJs(<<<'JS'
+                            //     const productId = $get('product_id');
+                            //     const customerId = $get('../../customer_id');
+                            //     const products = $get('../../products') ?? {};
 
-                                let rate = 0;
-                                let unit_id = null;
+                            //     let rate = 0;
+                            //     let unit_id = null;
 
-                                console.log(productId)
-                                console.log(customerId)
-                                console.log(products)
+                            //     console.log(productId)
+                            //     console.log(customerId)
+                            //     console.log(products)
 
-                                if (products[productId]) {
+                            //     if (products[productId]) {
 
-                                console.log(products[productId])
+                            //     console.log(products[productId])
 
-                                const customerRateObj = (products[productId].customer_rates || []).find(
-                                    r => r.customer_id == customerId
-                                );
+                            //     const customerRateObj = (products[productId].customer_rates || []).find(
+                            //         r => r.customer_id == customerId
+                            //     );
 
-                                if (customerRateObj) {
-                                    rate = parseFloat(customerRateObj.selling_price);
-                                } else {
-                                    rate = parseFloat(products[productId].selling_price || 0);
-                                }
+                            //     if (customerRateObj) {
+                            //         rate = parseFloat(customerRateObj.selling_price);
+                            //     } else {
+                            //         rate = parseFloat(products[productId].selling_price || 0);
+                            //     }
 
-                                unit_id = products[productId].unit_id ?? null;
+                            //     unit_id = products[productId].unit_id ?? null;
 
-                                console.log(unit_id, rate)
+                            //     console.log(unit_id, rate)
 
 
-                                }
+                            //     }
 
-                                $set('rate', rate);
-                                $set('unit_id', unit_id);
+                            //     $set('rate', rate);
+                            //     $set('unit_id', unit_id);
 
-                                const qty = parseFloat($get('qty')) || 0;
-                                $set('total', qty * rate);
+                            //     const qty = parseFloat($get('qty')) || 0;
+                            //     $set('total', qty * rate);
 
-                                const items = $get('../../items') ?? {};
-                                const grandTotal = Object.values(items).reduce((sum, item) => {
-                                    return sum + (parseFloat(item.total) || 0);
-                                }, 0);
+                            //     const items = $get('../../items') ?? {};
+                            //     const grandTotal = Object.values(items).reduce((sum, item) => {
+                            //         return sum + (parseFloat(item.total) || 0);
+                            //     }, 0);
 
-                                $set('../../grand_total', grandTotal);
-                            JS)
+                            //     $set('../../grand_total', grandTotal);
+                            // JS)
                             ->required(),
                         Select::make('unit_id')
                             ->relationship('unit', 'name')
@@ -343,61 +343,61 @@ class SaleReturnForm
                             })
                             ->disabled()
                             ->saved()
-                            ->afterStateUpdatedJs(<<<'JS'
-                                const productId = $get('product_id');
-                                const selectedUnitId = $get('unit_id');
-                                const customerId = $get('../../customer_id');
-                                const products = $get('../../products') ?? {};
+                            // ->afterStateUpdatedJs(<<<'JS'
+                            //     const productId = $get('product_id');
+                            //     const selectedUnitId = $get('unit_id');
+                            //     const customerId = $get('../../customer_id');
+                            //     const products = $get('../../products') ?? {};
 
-                                let rate = 0;
-                                let baseRate = 0;
+                            //     let rate = 0;
+                            //     let baseRate = 0;
 
-                                if (products[productId]) {
-                                    const product = products[productId];
+                            //     if (products[productId]) {
+                            //         const product = products[productId];
 
-                                    const customerRateObj = (product.customer_rates || []).find(
-                                        r => r.customer_id == customerId
-                                    );
+                            //         const customerRateObj = (product.customer_rates || []).find(
+                            //             r => r.customer_id == customerId
+                            //         );
 
-                                    rate = parseFloat(
-                                        customerRateObj?.selling_price ??
-                                        product.selling_price ??
-                                        0
-                                    );
+                            //         rate = parseFloat(
+                            //             customerRateObj?.selling_price ??
+                            //             product.selling_price ??
+                            //             0
+                            //         );
 
-                                    const productUnitId = product.unit_id;
-                                    const productSubUnitId = product.sub_unit_id;
-                                    const conversion = parseFloat(product.sub_unit_conversion ?? 0);
+                            //         const productUnitId = product.unit_id;
+                            //         const productSubUnitId = product.sub_unit_id;
+                            //         const conversion = parseFloat(product.sub_unit_conversion ?? 0);
 
-                                    console.log(productUnitId);
-                                    console.log(productSubUnitId);
-                                    console.log(conversion);
-                                    console.log(selectedUnitId);
+                            //         console.log(productUnitId);
+                            //         console.log(productSubUnitId);
+                            //         console.log(conversion);
+                            //         console.log(selectedUnitId);
 
-                                    if (selectedUnitId == productUnitId) {
-                                        baseRate = rate;
-                                    } else if (selectedUnitId == productSubUnitId) {
-                                        baseRate = rate / conversion;
-                                    } else {
-                                        baseRate = rate;
-                                    }
+                            //         if (selectedUnitId == productUnitId) {
+                            //             baseRate = rate;
+                            //         } else if (selectedUnitId == productSubUnitId) {
+                            //             baseRate = rate / conversion;
+                            //         } else {
+                            //             baseRate = rate;
+                            //         }
 
-                                    console.log(baseRate ,rate, rate / conversion);
+                            //         console.log(baseRate ,rate, rate / conversion);
 
-                                }
+                            //     }
 
-                                $set('rate', Number(baseRate.toFixed(2)));
+                            //     $set('rate', Number(baseRate.toFixed(2)));
 
-                                const qty = parseFloat($get('qty')) || 0;
-                                $set('total', qty * baseRate);
+                            //     const qty = parseFloat($get('qty')) || 0;
+                            //     $set('total', qty * baseRate);
 
-                                const items = $get('../../items') ?? {};
-                                const grandTotal = Object.values(items).reduce((sum, item) => {
-                                    return sum + (parseFloat(item.total) || 0);
-                                }, 0);
+                            //     const items = $get('../../items') ?? {};
+                            //     const grandTotal = Object.values(items).reduce((sum, item) => {
+                            //         return sum + (parseFloat(item.total) || 0);
+                            //     }, 0);
 
-                                $set('../../grand_total', grandTotal);
-                            JS)
+                            //     $set('../../grand_total', grandTotal);
+                            // JS)
                             // ->helperText(function (Get $get) use ($productsKeyedArray) {
                             //     $productId = $get('product_id');
                             //     $selectedUnitId = $get('unit_id');
@@ -718,8 +718,8 @@ class SaleReturnForm
                 return [
                     'product_id' => $productid,
                     'unit_id' => $unitId,
-                    // 'qty'        => (float) $remainingQty, // 👈 important
-                    'qty'        => (float) 0, // 👈 important
+                    // 'qty'        => (float) $remainingQty, // !! important
+                    'qty'        => (float) 0, // !! important
                     'rate'       => (float) $rate,
                     'discount_type' => $discountType,
                     'discount_value' => (float) $discountValue,

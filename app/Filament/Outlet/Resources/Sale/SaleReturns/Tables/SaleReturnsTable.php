@@ -23,6 +23,7 @@ class SaleReturnsTable
                     ->searchable(),
                 TextColumn::make('total')
                     ->numeric()
+                    ->currency()
                     ->sumCurrency()
                     ->sortable(),
                 TextColumn::make('discount_type')
@@ -31,6 +32,7 @@ class SaleReturnsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('grand_total')
+                    ->currency()
                     ->sumCurrency()
                     ->numeric()
                     ->sortable(),
