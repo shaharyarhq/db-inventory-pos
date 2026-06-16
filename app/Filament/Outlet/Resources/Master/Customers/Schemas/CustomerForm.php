@@ -31,6 +31,7 @@ class CustomerForm
                             ->schema([
                                 TextInput::make('name')
                                     ->unique()
+                                    ->columnSpanFull()
                                     ->required(),
 
                                 TextInput::make('contact')
@@ -50,6 +51,10 @@ class CustomerForm
                                         fn($query, Get $get) => $query->where('city_id', $get('city_id'))
                                     )
                                     ->manageOptionForm(AreaForm::configure($schema)->getComponents()),
+
+                                Select::make('referred_by')
+                                    ->relationship('referredBy', 'name')
+                                    ->nullable(),
                             ]),
                         Section::make()
                             ->columnSpan(1)

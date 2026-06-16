@@ -31,6 +31,8 @@ class CustomersTable
                     ->visibility('public'),
                 TextColumn::make('name')
                     ->copyable(),
+                TextColumn::make('referredBy.name')
+                    ->copyable(),
                 TextColumn::make('contact')
                     ->disableNumericFormatting()
                     ->copyable(),

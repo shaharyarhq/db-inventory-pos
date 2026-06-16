@@ -11,8 +11,8 @@ use App\Models\Master\City;
 use App\Models\Master\CustomerProductRate;
 use App\Models\Sale\Sale;
 use App\Models\Scopes\OutletScope;
-use App\Models\Traits\HasSelfAsParent;
 use App\Models\Traits\HasStatus;
+use App\Models\User;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -36,6 +36,7 @@ class Customer extends Model
         'customer_type',
         'opening_balance',
         'attachments',
+        'referred_by',
     ];
 
     protected $casts = [
@@ -50,6 +51,11 @@ class Customer extends Model
     public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class);
+    }
+
+    public function referredBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'referred_by');
     }
 
     public function ledgers()

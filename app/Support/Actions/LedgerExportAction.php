@@ -84,7 +84,7 @@ class LedgerExportAction
                     ->required($this->getIsOutletRequired())
                     ->options(Outlet::options()),
             ] : [])
-            ->action(function (?Model $record, array $data) use ($exportClass, $fileName) {
+            ->action(function (?Model $record, array $data, $livewire) use ($exportClass, $fileName) {
                 $outletId = $data['outlet_id'] ?? null;
                 $outlet = Outlet::find($outletId);
 
@@ -95,8 +95,10 @@ class LedgerExportAction
                 // Sanitize: strip characters invalid in Content-Disposition filenames
                 $resolvedFileName = str_replace(['/', '\\', ':', '*', '?', '"', '<', '>', '|'], '-', $resolvedFileName);
 
+                $filteredTableQuery = $livewire->getFilteredTableQuery();
+
                 return Excel::download(
-                    new $exportClass($record?->id, $outletId),
+                    new $exportClass($record?->id, $outletId, $filteredTableQuery),
                     "{$resolvedFileName}.xlsx"
                 );
             });

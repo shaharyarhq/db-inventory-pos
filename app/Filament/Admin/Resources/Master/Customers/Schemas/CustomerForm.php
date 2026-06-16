@@ -37,6 +37,10 @@ class CustomerForm
                                     ->unique()
                                     ->required(),
 
+                                Select::make('referred_by')
+                                    ->relationship('referredBy', 'name')
+                                    ->nullable(),
+
                                 TextInput::make('contact')
                                     ->nullable()
                                     ->tel(),

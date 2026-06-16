@@ -34,7 +34,7 @@ class SalesTable
                     ->copyable(),
                 TextColumn::make('customer.name')
                     ->url(
-                        filament()->auth()->user()->isSuperAdmin() ? fn ($state) => CustomerResource::getUrl('index', [
+                        filament()->auth()->user()->isSuperAdmin() ? fn($state) => CustomerResource::getUrl('index', [
                             'search' => $state,
                         ], panel: PanelId::ADMIN->value) : '',
                         true
@@ -45,7 +45,7 @@ class SalesTable
                 TextColumn::make('customer.city.name')
                     ->copyable(),
                 TextColumn::make('total')
-                    ->summarize(Sum::make()->formatStateUsing(fn ($state) => currency_format($state)))
+                    ->summarize(Sum::make()->formatStateUsing(fn($state) => currency_format($state)))
                     ->currency(),
                 TextColumn::make('discount_type')
                     ->copyable()
@@ -53,8 +53,8 @@ class SalesTable
                     ->badge(),
                 TextColumn::make('discount_value')
                     ->numeric()
-                    ->prefix(fn ($record) => $record->discount_type === DiscountType::FIXED ? app_currency_symbol() : '')
-                    ->suffix(fn ($record) => $record->discount_type === DiscountType::PERCENT ? ' %' : '')
+                    ->prefix(fn($record) => $record->discount_type === DiscountType::FIXED ? app_currency_symbol() : '')
+                    ->suffix(fn($record) => $record->discount_type === DiscountType::PERCENT ? ' %' : '')
                     ->copyable(),
                 TextColumn::make('discount_amount')
                     ->copyable()
@@ -88,6 +88,11 @@ class SalesTable
             ->moreFilters([], [
                 SelectFilter::make('customer')
                     ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->optionsLimit(10),
+                SelectFilter::make('customer_referred_by')
+                    ->relationship('customer.referredBy', 'name')
                     ->searchable()
                     ->preload()
                     ->optionsLimit(10),
@@ -147,13 +152,13 @@ class SalesTable
                             ],
                         ]]);
                     }, true),
-                PdfDownloadAction::make('partials.pdf.sale', fn (Model $record) => $record->sale_number)
+                PdfDownloadAction::make('partials.pdf.sale', fn(Model $record) => $record->sale_number)
                     ->download()
                     ->modalWidth(Width::Medium)
                     ->schema([
                         Toggle::make('group_variants')->default(true),
                     ]),
-                PdfDownloadAction::make('partials.pdf.sale', fn (Model $record) => $record->sale_number)
+                PdfDownloadAction::make('partials.pdf.sale', fn(Model $record) => $record->sale_number)
                     ->print()
                     ->modalWidth(Width::Medium)
                     ->schema([

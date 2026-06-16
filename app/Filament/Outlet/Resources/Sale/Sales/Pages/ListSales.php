@@ -2,6 +2,7 @@
 
 namespace App\Filament\Outlet\Resources\Sale\Sales\Pages;
 
+use App\Exports\SalesBreakDownExport;
 use App\Exports\SalesExport;
 use App\Filament\Outlet\Resources\Sale\Sales\SaleResource;
 use App\Models\Outlet\Outlet;
@@ -36,6 +37,14 @@ class ListSales extends ListRecords
                 ->isOutletRequired(false)
                 ->hasOutletSelectionSchema(false)
                 ->make(),
+            LedgerExportAction::configure(SalesBreakDownExport::class)
+                ->fileName(function (?Model $record, ?Outlet $outlet) {
+                    $outlet = Filament::getTenant();
+                    return "sales_breakdown_export_{$outlet->name}";
+                })
+                ->isOutletRequired(false)
+                ->hasOutletSelectionSchema(false)
+                ->make('Export Sales Breakdown'),
             RefreshAction::make(),
         ];
     }

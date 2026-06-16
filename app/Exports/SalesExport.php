@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Sale\Sale;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -11,9 +12,15 @@ use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 
 class SalesExport implements FromCollection, WithHeadings, WithMapping, WithStrictNullComparison
 {
+    public function __construct(
+        protected ?int $recordId = null,
+        protected ?int $outletId = null,
+        protected ?Builder $filteredQuery = null,
+    ) {}
+
     public function collection()
     {
-        return Sale::with(['customer', 'items', 'creator'])->orderBy('id')->get();
+        return $this->filteredQuery->with(['customer', 'items', 'creator'])->orderBy('id')->get();
     }
 
     public function headings(): array
