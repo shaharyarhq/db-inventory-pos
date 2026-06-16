@@ -10,17 +10,6 @@
       0 => 'Ariefng\\FilamentCalculator\\FilamentCalculatorServiceProvider',
     ),
   ),
-  'asosick/filament-layout-manager' => 
-  array (
-    'aliases' => 
-    array (
-      'FilamentLayoutManager' => 'Asosick\\FilamentLayoutManager\\FilamentLayoutManager',
-    ),
-    'providers' => 
-    array (
-      0 => 'Asosick\\FilamentLayoutManager\\FilamentLayoutManagerServiceProvider',
-    ),
-  ),
   'barryvdh/laravel-debugbar' => 
   array (
     'aliases' => 

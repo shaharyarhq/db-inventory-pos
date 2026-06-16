@@ -225,3 +225,7 @@ img.fi-logo {
     --hover-bg: var(--color-500) !important;
     --hover-text: white !important;
 }
+/*
+.fi-btn{
+    @apply rounded-full;
+} */

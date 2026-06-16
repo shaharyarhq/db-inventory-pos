@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bc75b342ea3977650aac91b69fc6913",
+    "content-hash": "0e3f4f47f9e00424abd2d31c95e3d4db",
     "packages": [
         {
             "name": "ariefng/filament-calculator",
@@ -84,89 +84,6 @@
                 }
             ],
             "time": "2026-03-25T14:56:19+00:00"
-        },
-        {
-            "name": "asosick/filament-layout-manager",
-            "version": "v2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/asosick/filament-layout-manager.git",
-                "reference": "fbb3b44434e04b954d5a523b8ee0520730ccc54b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/asosick/filament-layout-manager/zipball/fbb3b44434e04b954d5a523b8ee0520730ccc54b",
-                "reference": "fbb3b44434e04b954d5a523b8ee0520730ccc54b",
-                "shasum": ""
-            },
-            "require": {
-                "filament/filament": "^4.0 || ^5.0",
-                "livewire/livewire": "^3.5 || ^4.0",
-                "php": "^8.2",
-                "spatie/laravel-package-tools": "^1.15.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^8.0",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^9.0",
-                "pestphp/pest": "^2.1",
-                "pestphp/pest-plugin-arch": "^2.0",
-                "pestphp/pest-plugin-laravel": "^2.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "FilamentLayoutManager": "Asosick\\FilamentLayoutManager\\FilamentLayoutManager"
-                    },
-                    "providers": [
-                        "Asosick\\FilamentLayoutManager\\FilamentLayoutManagerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Asosick\\FilamentLayoutManager\\": "src/",
-                    "Asosick\\FilamentLayoutManager\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "August",
-                    "email": "august@sosick.ca",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Allow users to create & customize their own FilamentPHP pages composed of Livewire components",
-            "homepage": "https://github.com/asosick/filament-layout-manager",
-            "keywords": [
-                "asosick",
-                "filament",
-                "filament-layout-manager",
-                "filamentphp",
-                "laravel",
-                "livewire",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/asosick/filament-layout-manager/issues",
-                "source": "https://github.com/asosick/filament-layout-manager"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/asosick",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-01-28T05:15:50+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",

@@ -7,6 +7,7 @@ use App\Enums\Status;
 use App\Filament\Support\View\LucideLoadingIndicator;
 use App\Support\Actions\CalculatorAction;
 use Carbon\Carbon;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -69,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
                 ->maxContentWidth($width) : null;
         });
 
-         $this->app->bind(LoadingIndicator::class, LucideLoadingIndicator::class);
+        $this->app->bind(LoadingIndicator::class, LucideLoadingIndicator::class);
 
         TextEntry::configureUsing(function (TextEntry $entry) {
             // $entry->size(TextSize::Large);
@@ -143,9 +144,9 @@ class AppServiceProvider extends ServiceProvider
         //     return $this;
         // });
 
-        TextInput::macro('calculator', function(){
+        TextInput::macro('calculator', function () {
             return $this->suffixAction(CalculatorAction::make()
-                    ->overlayParentActions()->disabled(fn($operation)=>$operation==='view'));
+                ->overlayParentActions()->disabled(fn($operation) => $operation === 'view'));
         });
 
         TextInput::macro('currency', function () {
@@ -470,5 +471,11 @@ class AppServiceProvider extends ServiceProvider
         FilamentAsset::registerCssVariables([
             'background-image' => 'url(' . asset('images/background/header.png') . ')',
         ]);
+
+        // Action::configureUsing(function (Action $action) {
+        //     $action->extraAttributes([
+        //         'class' => 'rounded-full!',
+        //     ]);
+        // }); Applied globally in theme.css cause it was not working here for some reason
     }
 }

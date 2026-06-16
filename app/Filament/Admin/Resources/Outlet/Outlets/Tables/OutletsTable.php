@@ -99,15 +99,16 @@ class OutletsTable
             ->recordActions([
                 // ViewAction::make(),
                 ActionGroup::make([
-                    EditAction::make(),
+                    EditAction::make()->button(),
                     Action::make('enter_outlet')
+                        ->button()
                         ->color('warning')
                         ->icon('heroicon-o-arrow-left-end-on-rectangle')
                         ->hidden(fn($record) => $record->deleted_at || ! $record->status === Status::ACTIVE->value)
                         ->url(function ($record) {
                             return Filament::getPanel('outlet')->getUrl($record);
                         }, true),
-                    DeleteAction::make(),
+                    DeleteAction::make()->button(),
                     // RestoreAction::make(),
                     // ForceDeleteAction::make(),
                 ])

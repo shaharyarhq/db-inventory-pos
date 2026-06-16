@@ -20,7 +20,7 @@ class TransferBetweenAccountResource extends Resource
 {
     protected static ?string $model = TransferBetweenAccount::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ArrowPath;
 
     protected static ?string $recordTitleAttribute = 'transfer_number';
 
