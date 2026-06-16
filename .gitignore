@@ -26,3 +26,4 @@ Thumbs.db
 # /pos-frontend/*
 # /public/pos/*
 /.misc/*
+/bootstrap/cache/*.php
