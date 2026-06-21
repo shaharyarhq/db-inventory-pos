@@ -72,7 +72,8 @@ class Expense extends Model
                     'account_id' => $expense->account_id,
                     'amount' => -$expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,
-                    'remarks' => "Expense Recorded: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'".($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    // 'remarks' => "Expense Recorded: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'" . ($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    'remarks' => $expense->description
                 ]
             );
 
@@ -86,7 +87,8 @@ class Expense extends Model
                     'expense_id' => $expense->id,
                     'amount' => $expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,
-                    'remarks' => "Expense Created: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'".($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    // 'remarks' => "Expense Created: {$expense->expense_number} from account: '{$expense->account->name}' for category '{$expense->expenseCategory->name}'".($expense->paymentMethod ? " via payment method: '{$expense->paymentMethod->name}'" : ''),
+                    'remarks' => $expense->description
                 ]
             );
         });

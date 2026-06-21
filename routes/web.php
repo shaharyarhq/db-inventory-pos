@@ -41,5 +41,4 @@ Route::get('/print-pdf/{model}/{id}', function (string $modelClass, int $id, Req
         ->setPaper('A4', 'portrait')
         ->output())
         ->header('Content-Type', 'application/pdf');
-
 })->middleware('auth')->name('print.pdf');

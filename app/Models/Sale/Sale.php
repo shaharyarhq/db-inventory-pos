@@ -235,7 +235,6 @@ class Sale extends Model
                     'remarks'          => "Sale Saved {$sale->sale_number} for customer {$sale->customer->name}",
                 ]
             );
-
         });
 
         static::deleting(function ($sale) {

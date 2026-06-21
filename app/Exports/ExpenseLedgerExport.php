@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Exports\Traits\ResolvesParentRecord;
 use App\Models\Accounting\ExpenseLedger;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -12,16 +13,22 @@ use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 
 class ExpenseLedgerExport implements FromCollection, WithHeadings, WithMapping, WithStrictNullComparison
 {
-     use ResolvesParentRecord;
+    use ResolvesParentRecord;
     protected float $runningBalance = 0;
 
     public function __construct(
-        protected ?int $expenseId = null,
+        protected Builder $filteredTableQuery,
+        protected ?int $recordId = null,
         protected ?int $outletId = null,
     ) {}
 
     public function collection()
     {
+        $expenseSubquery = (clone $this->filteredTableQuery)
+            ->when($this->recordId, fn(Builder $q) => $q->where('id', $this->recordId))
+            ->when($this->outletId, fn(Builder $q) => $q->where('outlet_id', $this->outletId))
+            ->select('id');
+
         return ExpenseLedger::with([
             'expense',
             'expense.account',
@@ -30,8 +37,7 @@ class ExpenseLedgerExport implements FromCollection, WithHeadings, WithMapping, 
             'source',
             'outlet',
         ])
-            // ->when($this->expenseId, fn($q) => $q->where('expense_id', $this->expenseId))
-            // ->when($this->outletId, fn($q) => $q->where('outlet_id', $this->outletId))
+            ->whereIn('expense_id', $expenseSubquery)
             ->orderBy('id')
             ->get();
     }

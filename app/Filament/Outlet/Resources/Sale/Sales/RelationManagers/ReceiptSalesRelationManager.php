@@ -17,6 +17,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 
 class ReceiptSalesRelationManager extends RelationManager
@@ -67,15 +68,21 @@ class ReceiptSalesRelationManager extends RelationManager
             ->recordTitleAttribute('receipt.receipt_number')
             ->columns([
                 TextColumn::make('receipt.receipt_number')
-                    ->url(fn($record) => ReceiptResource::getUrl('edit', [
-                        'record' => $record->receipt,
-                    ]), true)
+                    ->url(function (Model $record) {
+                        $receipt = $record->receipt;
+                        return ReceiptResource::getUrl('edit', [
+                            'record' => $receipt,
+                        ], tenant: $receipt->outlet);
+                    }, true)
                     ->visible(fn($livewire) => ! self::shouldShowOnResource($livewire, ReceiptResource::class))
                     ->searchable(),
                 TextColumn::make('sale.sale_number')
-                    ->url(fn($record) => SaleResource::getUrl('edit', [
-                        'record' => $record->sale,
-                    ]), true)
+                    ->url(function (Model $record) {
+                        $sale = $record->sale;
+                        return SaleResource::getUrl('edit', [
+                            'record' => $sale,
+                        ], tenant: $sale->outlet);
+                    }, true)
                     ->visible(fn($livewire) => self::shouldShowOnResource($livewire, ReceiptResource::class))
                     ->searchable(),
                 TextColumn::make('receipt.amount')
@@ -83,6 +90,12 @@ class ReceiptSalesRelationManager extends RelationManager
                     ->visible(fn($livewire) => !self::shouldShowOnResource($livewire, ReceiptResource::class))
                     ->sumCurrency()
                     ->currency(),
+                TextColumn::make('sale.outlet.name')
+                    ->visible(fn($livewire) => self::shouldShowOnResource($livewire, ReceiptResource::class))
+                    ->searchable(),
+                TextColumn::make('receipt.outlet.name')
+                    ->visible(fn($livewire) => !self::shouldShowOnResource($livewire, ReceiptResource::class))
+                    ->searchable(),
                 SelectColumn::make('receipt.status')
                     ->label('Status')
                     ->options(ReceiptStatus::class)

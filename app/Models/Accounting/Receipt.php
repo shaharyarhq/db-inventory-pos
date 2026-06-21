@@ -87,7 +87,7 @@ class Receipt extends Model
                         'account_id'       => $receipt->account_id,
                         'amount'           => $receipt->amount,
                         'transaction_type' => $transactionType,
-                    'remarks'          => $receipt->remarks ?? "Payment received from customer '{$receipt->customer->name}' in account {$receipt->account->name}",
+                        'remarks'          => $receipt->remarks ?? "Payment received from customer '{$receipt->customer->name}' in account {$receipt->account->name}",
                         'outlet_id'        => $receipt->outlet_id,
                     ]
                 );
@@ -102,7 +102,7 @@ class Receipt extends Model
                         'customer_id'      => $receipt->customer_id,
                         'amount'           => -$receipt->amount,
                         'transaction_type' => $transactionType,
-                          'remarks'          => $receipt->remarks ?? "Payment received from customer '{$receipt->customer->name}' in account {$receipt->account->name}",
+                        'remarks'          => $receipt->remarks ?? "Payment received from customer '{$receipt->customer->name}' in account {$receipt->account->name}",
                         'outlet_id'        => $receipt->outlet_id,
                     ]
                 );

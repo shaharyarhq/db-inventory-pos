@@ -38,8 +38,6 @@ class ExpensesTable
                     ->currency(),
                 TextColumn::make('description')
                     ->desc(),
-                // TextColumn::make('outlet.name')
-                //     ->searchable(),
                 TextColumn::make('date')
                     ->dateTime(app_date_format())
                     ->sortable()

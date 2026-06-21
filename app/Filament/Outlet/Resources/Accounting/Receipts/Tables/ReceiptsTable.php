@@ -43,8 +43,6 @@ class ReceiptsTable
                     ->disabled(fn() => !filament()->auth()->user()->can('UpdateStatus:Receipt')),
                 TextColumn::make('remarks')
                     ->desc(),
-                // TextColumn::make('outlet.name')
-                //     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -53,14 +51,8 @@ class ReceiptsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->moreFilters([
-                // TrashedFilter::make(),
-            ], [
+            ->moreFilters([], [
                 SelectFilter::make('account')
                     ->relationship('account', 'name'),
                 SelectFilter::make('customer')

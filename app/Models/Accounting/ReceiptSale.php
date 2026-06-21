@@ -14,19 +14,23 @@ class ReceiptSale extends Model
 
     public function sale()
     {
-        return $this->belongsTo(Sale::class);
+        return $this->belongsTo(Sale::class)->withoutGlobalScopes();
     }
 
     public function receipt()
     {
-        return $this->belongsTo(Receipt::class);
+        return $this->belongsTo(Receipt::class)->withoutGlobalScopes();
     }
 
     public static function booted()
     {
         static::created(function ($receiptSale) {
+            $remarks = ' Sale : ' . $receiptSale->sale->sale_number;
+            if ($receiptSale->receipt->remarks != '') {
+                $remarks = $receiptSale->receipt->remarks . ' | ' . $remarks;
+            }
             $receiptSale->receipt->update([
-                'remarks' => $receiptSale->receipt->remarks . ' | Sale : ' . $receiptSale->sale->sale_number,
+                'remarks' => $remarks,
             ]);
         });
     }

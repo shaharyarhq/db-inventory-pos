@@ -10,8 +10,8 @@
         <title>Sale Invoice #{!! $record->sale_number !!}</title>
         <style>
             /*-----------------------------------------------
-            RESET & BASE STYLES
-        -----------------------------------------------*/
+                RESET & BASE STYLES
+            -----------------------------------------------*/
             html,
             body {
                 height: auto;
@@ -33,8 +33,8 @@
             }
 
             /*-----------------------------------------------
-            INVOICE WRAPPER
-        -----------------------------------------------*/
+                INVOICE WRAPPER
+            -----------------------------------------------*/
             .sale-wrapper {
                 position: relative;
                 border: 0.8px solid #d9e0e6;
@@ -46,8 +46,8 @@
             }
 
             /*-----------------------------------------------
-            CLEARFIX
-        -----------------------------------------------*/
+                CLEARFIX
+            -----------------------------------------------*/
             .clearfix:before,
             .clearfix:after {
                 content: "";
@@ -63,8 +63,8 @@
             }
 
             /*-----------------------------------------------
-            HEADER SECTION
-        -----------------------------------------------*/
+                HEADER SECTION
+            -----------------------------------------------*/
             .header-left {
                 float: left;
                 width: 49%;
@@ -125,8 +125,8 @@
             }
 
             /*-----------------------------------------------
-            PARTY CARDS (Customer & Outlet)
-        -----------------------------------------------*/
+                PARTY CARDS (Customer & Outlet)
+            -----------------------------------------------*/
             .party-section {
                 width: 100%;
                 margin: 0.1cm 0 0.15cm;
@@ -180,8 +180,8 @@
             }
 
             /*-----------------------------------------------
-            DESCRIPTION CARD
-        -----------------------------------------------*/
+                DESCRIPTION CARD
+            -----------------------------------------------*/
             .desc-card {
                 background: #e8f5e9;
                 border: 0.8px solid #a5d6a7;
@@ -205,8 +205,8 @@
             }
 
             /*-----------------------------------------------
-            SUMMARY INFO ROW
-        -----------------------------------------------*/
+                SUMMARY INFO ROW
+            -----------------------------------------------*/
             .summary-info {
                 width: 100%;
                 margin: 0.06cm 0;
@@ -226,8 +226,8 @@
             }
 
             /*-----------------------------------------------
-            ITEMS TABLE
-        -----------------------------------------------*/
+                ITEMS TABLE
+            -----------------------------------------------*/
             .items-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -275,8 +275,8 @@
             }
 
             /*-----------------------------------------------
-            SUMMARY PANELS (Left & Right)
-        -----------------------------------------------*/
+                SUMMARY PANELS (Left & Right)
+            -----------------------------------------------*/
             .summary-left-panel {
                 float: left;
                 width: 48%;
@@ -349,8 +349,8 @@
             }
 
             /*-----------------------------------------------
-            FOOTER (3-column layout)
-        -----------------------------------------------*/
+                FOOTER (3-column layout)
+            -----------------------------------------------*/
             .footer-note {
                 width: 100%;
                 margin-top: 0.15cm;
@@ -403,8 +403,8 @@
             }
 
             /*-----------------------------------------------
-            WATERMARK
-        -----------------------------------------------*/
+                WATERMARK
+            -----------------------------------------------*/
             .watermark {
                 position: absolute;
                 top: 0;
@@ -425,8 +425,8 @@
             }
 
             /*-----------------------------------------------
-            MARKETING FOOTER
-        -----------------------------------------------*/
+                MARKETING FOOTER
+            -----------------------------------------------*/
             .marketing-footer {
                 text-align: center;
                 color: #6f8a9c;
@@ -441,8 +441,8 @@
             }
 
             /*-----------------------------------------------
-            OVERRIDES & PAGE SETTINGS
-        -----------------------------------------------*/
+                OVERRIDES & PAGE SETTINGS
+            -----------------------------------------------*/
             div[style*="margin-top:0.7cm"] {
                 margin-top: 0.15cm !important;
             }
@@ -554,7 +554,7 @@
                 @if ($record->description)
                     <div class="desc-card">
                         <div class="desc-label">note</div>
-                          {{-- <div class="desc-text">{{ Str::limit($record->description, 90) }}</div> --}}
+                        {{-- <div class="desc-text">{{ Str::limit($record->description, 90) }}</div> --}}
                         <div class="desc-text">{{ $record->description }}</div>
                     </div>
                 @endif
@@ -686,10 +686,10 @@
                         <br>
                         <span style="font-size:5pt;">
                             {{ collect([
-                                config('software.developer_contact'),
-                                config('software.developer_email'),
-                                config('software.developer_portfolio'),
-                            ])->filter()->join(' | ') }}
+                            config('software.developer_contact'),
+                            config('software.developer_email'),
+                            config('software.developer_portfolio'),
+                        ])->filter()->join(' | ') }}
                         </span>
                     </div>
                 @endif
@@ -707,8 +707,8 @@
         <title>Sale Invoice #{!! $record->sale_number !!}</title>
         <style>
             /*-----------------------------------------------
-            RESET & BASE STYLES
-        -----------------------------------------------*/
+                RESET & BASE STYLES
+            -----------------------------------------------*/
             html,
             body {
                 height: auto;
@@ -730,8 +730,8 @@
             }
 
             /*-----------------------------------------------
-            INVOICE WRAPPER
-        -----------------------------------------------*/
+                INVOICE WRAPPER
+            -----------------------------------------------*/
             .sale-wrapper {
                 position: relative;
                 border: 0.8px solid #d9e0e6;
@@ -743,8 +743,8 @@
             }
 
             /*-----------------------------------------------
-            CLEARFIX
-        -----------------------------------------------*/
+                CLEARFIX
+            -----------------------------------------------*/
             .clearfix:before,
             .clearfix:after {
                 content: "";
@@ -760,8 +760,8 @@
             }
 
             /*-----------------------------------------------
-            HEADER SECTION
-        -----------------------------------------------*/
+                HEADER SECTION
+            -----------------------------------------------*/
             .header-left {
                 float: left;
                 width: 49%;
@@ -822,8 +822,8 @@
             }
 
             /*-----------------------------------------------
-            PARTY CARDS (Customer & Outlet)
-        -----------------------------------------------*/
+                PARTY CARDS (Customer & Outlet)
+            -----------------------------------------------*/
             .party-section {
                 width: 100%;
                 margin: 0.1cm 0 0.15cm;
@@ -877,8 +877,8 @@
             }
 
             /*-----------------------------------------------
-            DESCRIPTION CARD
-        -----------------------------------------------*/
+                DESCRIPTION CARD
+            -----------------------------------------------*/
             .desc-card {
                 background: #e8f5e9;
                 border: 0.8px solid #a5d6a7;
@@ -902,8 +902,8 @@
             }
 
             /*-----------------------------------------------
-            SUMMARY INFO ROW
-        -----------------------------------------------*/
+                SUMMARY INFO ROW
+            -----------------------------------------------*/
             .summary-info {
                 width: 100%;
                 margin: 0.06cm 0;
@@ -923,8 +923,8 @@
             }
 
             /*-----------------------------------------------
-            ITEMS TABLE
-        -----------------------------------------------*/
+                ITEMS TABLE
+            -----------------------------------------------*/
             .items-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -972,8 +972,8 @@
             }
 
             /*-----------------------------------------------
-            SUMMARY PANELS (Left & Right)
-        -----------------------------------------------*/
+                SUMMARY PANELS (Left & Right)
+            -----------------------------------------------*/
             .summary-left-panel {
                 float: left;
                 width: 48%;
@@ -1046,8 +1046,8 @@
             }
 
             /*-----------------------------------------------
-            FOOTER (3-column layout)
-        -----------------------------------------------*/
+                FOOTER (3-column layout)
+            -----------------------------------------------*/
             .footer-note {
                 width: 100%;
                 margin-top: 0.15cm;
@@ -1100,8 +1100,8 @@
             }
 
             /*-----------------------------------------------
-            WATERMARK
-        -----------------------------------------------*/
+                WATERMARK
+            -----------------------------------------------*/
             .watermark {
                 position: absolute;
                 top: 0;
@@ -1122,8 +1122,8 @@
             }
 
             /*-----------------------------------------------
-            MARKETING FOOTER
-        -----------------------------------------------*/
+                MARKETING FOOTER
+            -----------------------------------------------*/
             .marketing-footer {
                 text-align: center;
                 color: #6f8a9c;
@@ -1138,8 +1138,8 @@
             }
 
             /*-----------------------------------------------
-            OVERRIDES & PAGE SETTINGS
-        -----------------------------------------------*/
+                OVERRIDES & PAGE SETTINGS
+            -----------------------------------------------*/
             div[style*="margin-top:0.7cm"] {
                 margin-top: 0.15cm !important;
             }
@@ -1422,10 +1422,10 @@
                         <br>
                         <span style="font-size:5pt;">
                             {{ collect([
-                                config('software.developer_contact'),
-                                config('software.developer_email'),
-                                config('software.developer_portfolio'),
-                            ])->filter()->join(' | ') }}
+                            config('software.developer_contact'),
+                            config('software.developer_email'),
+                            config('software.developer_portfolio'),
+                        ])->filter()->join(' | ') }}
                         </span>
                     </div>
                 @endif

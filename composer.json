@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "4.2.2",
         "maatwebsite/excel": "^3.1",
+        "nben/filament-record-nav": "^2.1",
         "shuvroroy/filament-spatie-laravel-backup": "^3.4",
         "spatie/laravel-permission": "*",
         "wildside/userstamps": "^3.1"

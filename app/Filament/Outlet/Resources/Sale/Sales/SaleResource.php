@@ -14,7 +14,6 @@ use App\Filament\Outlet\Resources\Sale\Sales\Widgets\SalesOverviewWidget;
 use App\Models\Sale\Sale;
 use App\Support\Traits\HasTimestampColumns;
 use BackedEnum;
-use Filament\Pages\Enums\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -32,8 +31,6 @@ class SaleResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::CurrencyDollar;
 
     protected static ?string $recordTitleAttribute = 'sale_number';
-
-    protected static null|SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Schema $schema): Schema
     {

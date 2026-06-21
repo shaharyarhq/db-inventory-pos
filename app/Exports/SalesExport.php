@@ -15,12 +15,12 @@ class SalesExport implements FromCollection, WithHeadings, WithMapping, WithStri
     public function __construct(
         protected ?int $recordId = null,
         protected ?int $outletId = null,
-        protected ?Builder $filteredQuery = null,
+        protected ?Builder $filteredTableQuery = null,
     ) {}
 
     public function collection()
     {
-        return $this->filteredQuery->with(['customer', 'items', 'creator'])->orderBy('id')->get();
+        return $this->filteredTableQuery->with(['customer', 'items', 'creator'])->orderBy('id')->get();
     }
 
     public function headings(): array

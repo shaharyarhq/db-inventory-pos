@@ -7,6 +7,7 @@ use App\Filament\Outlet\Resources\Master\Customers\Schemas\CustomerForm;
 use App\Models\Accounting\CustomerLedger;
 use Closure;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -14,6 +15,7 @@ use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Operation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -115,6 +117,15 @@ class ReceiptForm
                             ->columnSpanFull()
                             ->openable(),
                     ]),
+                Repeater::make('receiptSales')
+                    ->columnSpanFull()
+                    ->relationship('receiptSales')
+                    ->visibleOn(Operation::Create)
+                    ->schema([
+                        Select::make('sale_id')
+                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                            ->relationship('sale', 'sale_number')
+                    ])
             ]);
     }
 

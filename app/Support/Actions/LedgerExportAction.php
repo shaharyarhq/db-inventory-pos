@@ -98,7 +98,11 @@ class LedgerExportAction
                 $filteredTableQuery = $livewire->getFilteredTableQuery();
 
                 return Excel::download(
-                    new $exportClass($record?->id, $outletId, $filteredTableQuery),
+                    new $exportClass(
+                        recordId: $record?->id,
+                        outletId: $outletId,
+                        filteredTableQuery: $filteredTableQuery,
+                    ),
                     "{$resolvedFileName}.xlsx"
                 );
             });

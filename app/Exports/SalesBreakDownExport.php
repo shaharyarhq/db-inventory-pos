@@ -15,12 +15,12 @@ class SalesBreakDownExport implements FromCollection, WithHeadings, WithMapping,
     public function __construct(
         protected ?int $recordId = null,
         protected ?int $outletId = null,
-        protected ?Builder $filteredQuery = null,
+        protected ?Builder $filteredTableQuery = null,
     ) {}
 
     public function collection()
     {
-        $sales = $this->filteredQuery
+        $sales = $this->filteredTableQuery
             ->with(['customer', 'creator', 'outlet', 'items.product', 'items.unit'])
             ->orderBy('id')
             ->get();

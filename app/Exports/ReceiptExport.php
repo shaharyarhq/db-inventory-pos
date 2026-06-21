@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Accounting\Receipt;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -11,9 +12,16 @@ use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 
 class ReceiptExport implements FromCollection, WithHeadings, WithMapping, WithStrictNullComparison
 {
+    public function __construct(
+        protected Builder $filteredTableQuery,
+        protected ?int $recordId = null,
+        protected ?int $outletId = null,
+    ) {}
+
+
     public function collection()
     {
-        return Receipt::with(['customer', 'account', 'creator'])->orderBy('id')->get();
+        return $this->filteredTableQuery->with(['customer', 'account', 'creator'])->orderBy('id')->get();
     }
 
     public function headings(): array
