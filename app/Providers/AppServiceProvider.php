@@ -58,18 +58,6 @@ class AppServiceProvider extends ServiceProvider
         //     }
         // });
 
-        Filament::serving(function () {
-            $width = request()->route()->getName() === 'filament.outlet.pages.pos' ?  Width::Full : null;
-            $topbar = request()->route()->getName() === 'filament.outlet.pages.pos' ?  true : false;
-
-            request()->route()->getName() === 'filament.outlet.pages.pos' ? filament()
-                ->getCurrentPanel()
-                ->sidebarCollapsibleOnDesktop(false)
-                ->sidebarFullyCollapsibleOnDesktop()
-                // ->topbar($topbar)
-                ->maxContentWidth($width) : null;
-        });
-
         $this->app->bind(LoadingIndicator::class, LucideLoadingIndicator::class);
 
         TextEntry::configureUsing(function (TextEntry $entry) {
@@ -203,6 +191,7 @@ class AppServiceProvider extends ServiceProvider
                 ->defaultSort('created_at', 'desc')
                 ->filtersFormColumns(2)
                 ->paginated([5, 10, 25, 50, 100, 'all'])
+                ->deferLoading()
                 ->extremePaginationLinks();
                 // ->deferColumnManager(false)
                 // ->striped()

@@ -78,6 +78,11 @@ class CustomersTable
                     ->searchable()
                     ->preload(10)
                     ->optionsLimit(10),
+                SelectFilter::make('referredBy')
+                    ->relationship('referredBy', 'name')
+                    ->searchable()
+                    ->preload(10)
+                    ->optionsLimit(10),
             ])
             ->groupedRecordActions([
                 ViewAction::make(),

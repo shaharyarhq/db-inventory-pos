@@ -2,24 +2,25 @@
 
 namespace App\Filament\Admin\Pages;
 
-use App\Settings\GeneralSettings;
 use BackedEnum;
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Actions\Action;
-use Filament\Actions\ActionGroup;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
-use Filament\Pages\Enums\SubNavigationPosition;
-use Filament\Pages\SettingsPage;
-use Filament\Schemas\Components\Group;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Pages\SettingsPage;
+use App\Settings\GeneralSettings;
+use Filament\Actions\ActionGroup;
 use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Group;
 use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Pages\Enums\SubNavigationPosition;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 
 class Settings extends SettingsPage
 {
@@ -47,10 +48,19 @@ class Settings extends SettingsPage
                             ->schema([
                                 TextInput::make('site_name')
                                     ->required(),
-                                ToggleButtons::make('spa_mode')
-                                    ->required()
-                                    ->inline()
-                                    ->boolean(),
+                                Group::make()
+                                    ->columns(2)
+                                    ->columnSpanFull()
+                                    ->schema([
+                                        ToggleButtons::make('spa_mode')
+                                            ->required()
+                                            ->inline()
+                                            ->boolean(),
+                                        ToggleButtons::make('spa_prefetching')
+                                            ->required()
+                                            ->inline()
+                                            ->boolean(),
+                                    ]),
                                 ActionGroup::make([
                                     Action::make('reset_cache')
                                         ->color('gray')

@@ -22,7 +22,6 @@ class OutletSaleStats extends StatsOverviewWidget
     public ?string $pollingInterval = null;
     protected int | string | array $columnSpan = 2;
     protected int | array | null $columns = 4;
-
     protected ?object $salesAggregates = null;
     protected ?object $salesReturnsAggregates = null;
     protected ?object $salesItemAggregates = null;

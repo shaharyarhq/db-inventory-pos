@@ -38,7 +38,10 @@ class PanelConfiguration
             ->brandName($this->generalSettings->site_name)
             ->brandLogo(fn() => $this->generalSettings->site_logo ? asset('storage/' . $this->generalSettings->site_logo) : null)
             ->darkModeBrandLogo(fn() => $this->generalSettings->site_logo_dark_mode ? asset('storage/' . $this->generalSettings->site_logo_dark_mode) : null)
-            ->spa(fn() => $this->generalSettings->spa_mode)
+            ->spa(
+                fn() => $this->generalSettings->spa_mode,
+                fn() => $this->generalSettings->spa_prefetching,
+            )
             ->maxContentWidth($this->generalSettings->content_width ?? Width::Full)
             ->favicon(fn() => $this->generalSettings->site_logo ? asset('storage/' . $this->generalSettings->site_logo) : null)
             // ->topNavigation(fn() => $this->generalSettings->navigation_type === 'topbar')

@@ -19,6 +19,8 @@ class GeneralSettings extends Settings
 
     public bool $spa_mode;
 
+    public bool $spa_prefetching;
+
     public ?string $address;
 
     public ?string $contact;
