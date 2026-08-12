@@ -35,15 +35,15 @@ class SaleForm
             ->withOutletStock()
             ->get(['id', 'name', 'selling_price', 'unit_id', 'sub_unit_id', 'sub_unit_conversion']);
 
-      $productsForState = $products->map(fn($p) => [
-        'id'             => $p->id,
-    'selling_price'  => $p->selling_price,
-    'unit_id'        => $p->unit_id,
-    'customer_rates' => $p->customerRates->map(fn($r) => [
-        'customer_id'   => $r->customer_id,
-        'selling_price' => $r->selling_price,
-    ])->toArray(),
-])->keyBy('id')->toArray();
+        $productsForState = $products->map(fn($p) => [
+            'id'             => $p->id,
+            'selling_price'  => $p->selling_price,
+            'unit_id'        => $p->unit_id,
+            'customer_rates' => $p->customerRates->map(fn($r) => [
+                'customer_id'   => $r->customer_id,
+                'selling_price' => $r->selling_price,
+            ])->toArray(),
+        ])->keyBy('id')->toArray();
 
         $productsKeyedArray = $products->keyBy('id')->toArray();
 

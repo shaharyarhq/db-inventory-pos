@@ -121,8 +121,10 @@ class ReceiptForm
                     ->columnSpanFull()
                     ->relationship('receiptSales')
                     ->visibleOn(Operation::Create)
+                    ->defaultItems(0)
                     ->schema([
                         Select::make('sale_id')
+                            ->required()
                             ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                             ->relationship('sale', 'sale_number')
                     ])
