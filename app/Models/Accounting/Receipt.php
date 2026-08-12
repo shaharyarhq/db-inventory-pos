@@ -31,6 +31,7 @@ class Receipt extends Model
         'outlet_id',
         'status',
         'attachments',
+        'date'
     ];
 
     protected $casts = [
@@ -84,6 +85,7 @@ class Receipt extends Model
                         'source_id'   => $receipt->id,
                     ],
                     [
+                        'date'             => $receipt->date,
                         'account_id'       => $receipt->account_id,
                         'amount'           => $receipt->amount,
                         'transaction_type' => $transactionType,
@@ -99,6 +101,7 @@ class Receipt extends Model
                         'source_id'   => $receipt->id,
                     ],
                     [
+                        'date'             => $receipt->date,
                         'customer_id'      => $receipt->customer_id,
                         'amount'           => -$receipt->amount,
                         'transaction_type' => $transactionType,

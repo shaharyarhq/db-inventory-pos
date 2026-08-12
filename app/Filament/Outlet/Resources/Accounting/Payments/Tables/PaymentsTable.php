@@ -39,6 +39,10 @@ class PaymentsTable
                     ->desc(),
                 // TextColumn::make('outlet.name')
                 //     ->searchable(),
+                TextColumn::make('date')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

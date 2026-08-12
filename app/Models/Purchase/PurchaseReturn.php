@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Purchase;
 
 use App\Enums\TransactionType;
@@ -30,7 +31,7 @@ class PurchaseReturn extends Model
         'grand_total',
     ];
 
-     protected $casts = [
+    protected $casts = [
         'attachments'       => 'array',
     ];
 
@@ -66,6 +67,7 @@ class PurchaseReturn extends Model
                     'source_id'   => $return->id,
                 ],
                 [
+                    'date'       => $return->created_at,
                     'supplier_id'      => $return->purchase->supplier_id,
                     'amount'           => -$return->grand_total,
                     'transaction_type' => TransactionType::PURCHASE_RETURN,

@@ -19,9 +19,11 @@ class AccountLedger extends Model
         'amount',
         'source_id',
         'source_type',
+        'date',
         'transaction_type',
         'remarks',
-        'outlet_id'
+        'outlet_id',
+        'date'
     ];
 
     public function account(): BelongsTo
@@ -36,7 +38,8 @@ class AccountLedger extends Model
 
     public static function getBalanceForAccountId(int $accountId): float
     {
-        return AccountLedger::withoutGlobalScope(OutletScope::class)->where('account_id', $accountId)
+        return AccountLedger::withoutGlobalScope(OutletScope::class)
+            ->where('account_id', $accountId)
             ->sum('amount');
     }
 }

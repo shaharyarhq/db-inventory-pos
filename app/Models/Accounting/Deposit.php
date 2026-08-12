@@ -20,7 +20,8 @@ class Deposit extends Model
         'attachments',
         'amount',
         'remarks',
-        'attachments'
+        'attachments',
+        'date',
     ];
 
     protected $casts = [
@@ -48,6 +49,7 @@ class Deposit extends Model
                 'source_id'   => $deposit->id,
                 'source_type' => Deposit::class,
             ], [
+                'date'             => $deposit->date,
                 'account_id'       => $deposit->account_id,
                 'amount'           => $deposit->amount,
                 'transaction_type' => TransactionType::DEPOSIT->value,

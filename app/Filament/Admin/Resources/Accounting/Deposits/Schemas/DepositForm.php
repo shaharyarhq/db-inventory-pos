@@ -2,14 +2,15 @@
 
 namespace App\Filament\Admin\Resources\Accounting\Deposits\Schemas;
 
-use App\Filament\Admin\Resources\Accounting\Accounts\Schemas\AccountForm;
-use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use App\Filament\Admin\Resources\Accounting\Accounts\Schemas\AccountForm;
 
 class DepositForm
 {
@@ -25,9 +26,13 @@ class DepositForm
                             ->relationship('account', 'name')
                             ->manageOptionForm(AccountForm::configure($schema)->getComponents())
                             ->required(),
+                        DatePicker::make('date')
+                            ->required()
+                            ->default(now()),
                         TextInput::make('amount')
                             ->required()
                             ->calculator()
+                            ->columnSpanFull()
                             ->currency(),
                     ]),
                 Textarea::make('remarks')

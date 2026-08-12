@@ -38,6 +38,7 @@ class Account extends Model
                     'source_id' => $account->id,
                 ],
                 [
+                    'date'       => $account->created_at,
                     'account_id' => $account->id,
                     'amount' => $account->opening_balance,
                     'transaction_type' => TransactionType::OPENING_BALANCE,

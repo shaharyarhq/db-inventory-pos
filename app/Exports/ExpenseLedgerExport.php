@@ -45,6 +45,7 @@ class ExpenseLedgerExport implements FromCollection, WithHeadings, WithMapping, 
     public function headings(): array
     {
         return [
+            'Date',
             'Expense',
             'Account',
             'Payment Method',
@@ -74,6 +75,7 @@ class ExpenseLedgerExport implements FromCollection, WithHeadings, WithMapping, 
         $parent = $this->resolveParentRecord($ledger->source);
 
         return [
+            $ledger->date,
             $ledger->expense?->expense_number,
             $ledger->expense?->account->name,
             $ledger->expense?->paymentMethod?->name,

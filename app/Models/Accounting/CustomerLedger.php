@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Accounting;
 
 use App\BelongsToOutlet;
@@ -18,6 +19,7 @@ class CustomerLedger extends Model
         'amount',
         'source_id',
         'source_type',
+        'date',
         'transaction_type',
         'remarks',
         'outlet_id',

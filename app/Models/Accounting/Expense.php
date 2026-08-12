@@ -69,6 +69,7 @@ class Expense extends Model
                     'source_id' => $expense->id,
                 ],
                 [
+                    'date' => $expense->date,
                     'account_id' => $expense->account_id,
                     'amount' => -$expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,
@@ -83,7 +84,7 @@ class Expense extends Model
                     'source_id' => $expense->id,
                 ],
                 [
-                    'date' => $expense->date ?? $expense->created_at,
+                    'date' => $expense->date,
                     'expense_id' => $expense->id,
                     'amount' => $expense->amount,
                     'transaction_type' => TransactionType::EXPENSE,

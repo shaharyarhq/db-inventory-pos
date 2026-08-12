@@ -82,6 +82,7 @@ class Purchase extends Model
                     'source_id'   => $purchase->id,
                 ],
                 [
+                    'date'       => $purchase->created_at,
                     'supplier_id'      => $purchase->supplier_id,
                     'amount'           => $purchase->grand_total,
                     'transaction_type' => TransactionType::PURCHASE,

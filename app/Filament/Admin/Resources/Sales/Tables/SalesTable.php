@@ -77,7 +77,7 @@ class SalesTable
                 SelectFilter::make('outlet')
                     ->relationship('outlet', 'name'),
             ])
-            ->recordActions([
+            ->groupedRecordActions([
                 ViewAction::make()
                     ->url(function (Model $record) {
                         return SaleResource::getUrl(

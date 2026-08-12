@@ -2,17 +2,18 @@
 
 namespace App\Filament\Admin\Resources\Accounting\TransferBetweenAccounts\Schemas;
 
-use App\Filament\Admin\Resources\Accounting\Accounts\Schemas\AccountForm;
-use App\Models\Accounting\Account;
 use Closure;
-use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Schema;
+use App\Models\Accounting\Account;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Storage;
+use App\Filament\Admin\Resources\Accounting\Accounts\Schemas\AccountForm;
 
 class TransferBetweenAccountForm
 {
@@ -38,10 +39,13 @@ class TransferBetweenAccountForm
                             )
                             ->manageOptionForm(AccountForm::configure(new Schema())->getComponents())
                             ->required(),
+                        DatePicker::make('date')
+                            ->required()
+                            ->default(now()),
                         TextInput::make('amount')
                             ->required()
                             ->calculator()
-                            ->columnSpanFull()
+                            // ->columnSpanFull()
                             ->rules(function (Get $get) {
                                 return [
                                     function ($attribute, $value, Closure $fail) use ($get) {

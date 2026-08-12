@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('customer_ledgers', function (Blueprint $table) {
+            $table->date('date')->nullable()->after('source_id');
+        });
+
+        // backfill from created_at for existing rows
+        DB::table('customer_ledgers')->update([
+            'date' => DB::raw('DATE(created_at)'),
+        ]);
+
+        Schema::table('customer_ledgers', function (Blueprint $table) {
+            $table->date('date')->nullable(false)->change();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('customer_ledgers', function (Blueprint $table) {
+            //
+        });
+    }
+};

@@ -33,6 +33,7 @@ class Payment extends Model
         'remarks',
         'attachments',
         'outlet_id',
+        'date'
     ];
 
     protected $casts = [
@@ -84,6 +85,7 @@ class Payment extends Model
                     'source_id'   => $payment->id,
                 ],
                 [
+                    'date'             => $payment->date,
                     'account_id'       => $payment->account_id,
                     'amount'           => -$payment->amount,
                     'transaction_type' => $transactionType,
@@ -96,6 +98,7 @@ class Payment extends Model
                     'source_id'   => $payment->id,
                 ],
                 [
+                    'date'             => $payment->date,
                     'supplier_id'      => $payment->supplier_id,
                     'amount'           => -$payment->amount,
                     'transaction_type' => $transactionType,

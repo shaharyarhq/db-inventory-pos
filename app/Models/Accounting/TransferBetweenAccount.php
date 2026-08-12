@@ -20,6 +20,7 @@ class TransferBetweenAccount extends Model
         'amount',
         'remarks',
         'attachments',
+        'date',
         'created_by',
         'updated_by',
     ];
@@ -61,6 +62,7 @@ class TransferBetweenAccount extends Model
                 'source_type' => TransferBetweenAccount::class,
                 'index' => 0,
             ], [
+                'date'             => $transfer->date,
                 'account_id'       => $transfer->from_account_id,
                 'amount'           => -$transfer->amount,
                 'transaction_type' => TransactionType::TRANSFER_BETWEEN_ACCOUNTS->value,
@@ -73,6 +75,7 @@ class TransferBetweenAccount extends Model
                 'source_type' => TransferBetweenAccount::class,
                 'index' => 1,
             ], [
+                'date'             => $transfer->date,
                 'account_id'       => $transfer->to_account_id,
                 'amount'           => $transfer->amount,
                 'transaction_type' => TransactionType::TRANSFER_BETWEEN_ACCOUNTS->value,

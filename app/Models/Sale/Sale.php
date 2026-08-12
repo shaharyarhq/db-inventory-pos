@@ -229,6 +229,7 @@ class Sale extends Model
                     'outlet_id'        => $sale->outlet_id,
                 ],
                 [
+                    'date'             => $sale->created_at,
                     'customer_id'      => $sale->customer_id,
                     'amount'           => $sale->grand_total,
                     'transaction_type' => TransactionType::SALE,

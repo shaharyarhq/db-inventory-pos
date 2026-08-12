@@ -100,6 +100,7 @@ class SaleReturn extends Model
                     'source_id'   => $return->id,
                 ],
                 [
+                    'date'       => $return->created_at,
                     'customer_id'      => $return->sale->customer_id,
                     'amount'           => -$return->grand_total,
                     'transaction_type' => TransactionType::SALE_RETURN,

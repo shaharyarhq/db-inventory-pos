@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Admin\Resources\Accounting\Deposits\Tables;
 
 use App\Filament\Admin\Resources\Accounting\Accounts\AccountResource;
@@ -27,6 +28,10 @@ class DepositsTable
                 TextColumn::make('amount')
                     ->currency()
                     ->copyable(),
+                TextColumn::make('date')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->copyable()
                     ->toggleable(isToggledHiddenByDefault: true),

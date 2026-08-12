@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models\Accounting;
 
 use App\BelongsToOutlet;
@@ -19,6 +20,7 @@ class SupplierLedger extends Model
         'amount',
         'source_id',
         'source_type',
+        'date',
         'reference_id',
         'reference_type',
         'transaction_type',
@@ -43,13 +45,14 @@ class SupplierLedger extends Model
 
     public static function getBalanceForSupplierId(int $supplierId): float
     {
-        return SupplierLedger::withoutGlobalScope(OutletScope::class)->where('supplier_id', $supplierId)
+        return SupplierLedger::withoutGlobalScope(OutletScope::class)
+            ->where('supplier_id', $supplierId)
             ->sum('amount');
     }
 
     public static function getSupplierBalanceQuery(int $supplierId)
     {
-        return SupplierLedger::withoutGlobalScope(OutletScope::class)->where('supplier_id', $supplierId);
+        return SupplierLedger::withoutGlobalScope(OutletScope::class)
+            ->where('supplier_id', $supplierId);
     }
-
 }

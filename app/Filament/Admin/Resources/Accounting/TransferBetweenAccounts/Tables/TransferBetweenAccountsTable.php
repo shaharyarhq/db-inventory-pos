@@ -33,6 +33,10 @@ class TransferBetweenAccountsTable
                 TextColumn::make('amount')
                     ->currency()
                     ->copyable(),
+                TextColumn::make('date')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->copyable()
                     ->toggleable(isToggledHiddenByDefault: true),

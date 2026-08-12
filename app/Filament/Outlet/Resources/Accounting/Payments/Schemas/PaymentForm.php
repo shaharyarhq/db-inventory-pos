@@ -2,19 +2,20 @@
 
 namespace App\Filament\Outlet\Resources\Accounting\Payments\Schemas;
 
-use App\Models\Accounting\AccountLedger;
-use App\Models\Accounting\SupplierLedger;
 use Closure;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Group;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Accounting\AccountLedger;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use App\Models\Accounting\SupplierLedger;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Utilities\Get;
 
 class PaymentForm
 {
@@ -28,7 +29,7 @@ class PaymentForm
                     ->schema([
                         Group::make()
                             ->columnSpanFull()
-                            ->columns(3)
+                            ->columns(4)
                             ->schema([
                                 Select::make('supplier_id')
                                     ->relationship('supplier', 'name')
@@ -57,6 +58,9 @@ class PaymentForm
                                             ]),
                                     ])
                                     ->required(),
+                                DatePicker::make('date')
+                                    ->required()
+                                    ->default(now()),
                             ]),
                         TextInput::make('amount')
                             ->columnSpanFull()

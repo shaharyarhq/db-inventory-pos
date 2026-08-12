@@ -2,22 +2,24 @@
 
 namespace App\Filament\Outlet\Resources\Accounting\Receipts\Schemas;
 
-use App\Enums\ReceiptStatus;
-use App\Filament\Outlet\Resources\Master\Customers\Schemas\CustomerForm;
-use App\Models\Accounting\CustomerLedger;
 use Closure;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Group;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
+use App\Enums\ReceiptStatus;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
 use Filament\Support\Enums\Operation;
+use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use App\Models\Accounting\CustomerLedger;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Utilities\Get;
+use App\Filament\Outlet\Resources\Master\Customers\Schemas\CustomerForm;
+use App\Filament\Admin\Resources\Accounting\Accounts\Schemas\AccountForm;
 
 class ReceiptForm
 {
@@ -60,8 +62,12 @@ class ReceiptForm
                                     ])
                                 // ->required()
                                 ,
+
+                                DatePicker::make('date')
+                                    ->required()
+                                    ->default(now()),
                             ])
-                            ->columns(3),
+                            ->columns(4),
                         TextInput::make('amount')
                             // ->columnSpanFull()
                             ->required()

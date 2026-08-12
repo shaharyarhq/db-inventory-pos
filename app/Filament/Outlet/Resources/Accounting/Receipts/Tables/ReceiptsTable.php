@@ -43,6 +43,10 @@ class ReceiptsTable
                     ->disabled(fn() => !filament()->auth()->user()->can('UpdateStatus:Receipt')),
                 TextColumn::make('remarks')
                     ->desc(),
+                TextColumn::make('date')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

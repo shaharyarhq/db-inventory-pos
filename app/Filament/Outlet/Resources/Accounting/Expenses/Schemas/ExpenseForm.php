@@ -60,7 +60,8 @@ class ExpenseForm
                                     ])
                                     ->nullable(),
                                 DatePicker::make('date')
-                                    ->nullable(),
+                                    ->required()
+                                    ->default(now()),
                             ]),
                         TextInput::make('amount')
                             ->columnSpanFull()
@@ -72,9 +73,9 @@ class ExpenseForm
                                 }
                                 $balance = AccountLedger::getBalanceForAccountId($accountId);
 
-                                return 'Account balance: '.currency_format($balance);
+                                return 'Account balance: ' . currency_format($balance);
                             })
-                            ->rules(fn (Get $get, ?Model $record) => [
+                            ->rules(fn(Get $get, ?Model $record) => [
                                 'min:0',
                                 function (string $attribute, $value, Closure $fail) use ($get, $record) {
                                     $accountId = $get('account_id');
