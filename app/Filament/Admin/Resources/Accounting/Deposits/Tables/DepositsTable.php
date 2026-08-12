@@ -29,7 +29,7 @@ class DepositsTable
                     ->currency()
                     ->copyable(),
                 TextColumn::make('date')
-                    ->dateTime()
+                    ->date()
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('created_at')

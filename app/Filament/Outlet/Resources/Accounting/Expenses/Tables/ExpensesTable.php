@@ -39,7 +39,7 @@ class ExpensesTable
                 TextColumn::make('description')
                     ->desc(),
                 TextColumn::make('date')
-                    ->dateTime(app_date_format())
+                    ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')

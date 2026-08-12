@@ -44,7 +44,7 @@ class ReceiptsTable
                 TextColumn::make('remarks')
                     ->desc(),
                 TextColumn::make('date')
-                    ->dateTime()
+                    ->date()
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('created_at')
