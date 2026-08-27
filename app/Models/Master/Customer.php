@@ -152,6 +152,7 @@ class Customer extends Model
                     'transaction_type' => TransactionType::OPENING_BALANCE->value,
                 ],
                 [
+                    'date'      => $customer->created_at,
                     'amount'    => $customer->opening_balance ?? 0,
                     'remarks'   => 'Opening balance synced',
                     'outlet_id' => null,
