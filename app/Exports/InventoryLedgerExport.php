@@ -6,6 +6,7 @@ use App\Enums\TransactionType;
 use App\Exports\Traits\ResolvesParentRecord;
 use App\Models\Inventory\InventoryLedger;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -19,7 +20,8 @@ class InventoryLedgerExport implements FromCollection, WithHeadings, WithMapping
     protected float $runningValuation = 0;
 
     public function __construct(
-        protected int $productId,
+        protected ?Builder $filteredTableQuery,
+        protected ?int $recordId = null,
         protected ?int $outletId = null,
     ) {}
 
@@ -36,7 +38,7 @@ class InventoryLedgerExport implements FromCollection, WithHeadings, WithMapping
                 'unit',
                 'source',
             ])
-            ->where('product_id', $this->productId)
+            ->where('id', $this->recordId)
             ->when($this->outletId, function ($q) {
                 return $q->where('outlet_id', $this->outletId);
             })
