@@ -85,9 +85,11 @@ class ProductsTable
                     ->action(function ($record) {
                         $tenantName = Filament::getTenant()->name;
                         $fileName = 'inventory_ledger_' . $record->name . '-' . $tenantName . '.xlsx';
+                        dd($record);
                         return Excel::download(new InventoryLedgerExport(
-                            $record->id,
-                            Filament::getTenant()->id,
+                            filteredTableQuery: null,
+                            recordId: $record->id,
+                            outletId: Filament::getTenant()->id,
                         ), $fileName);
                     }),
             ])

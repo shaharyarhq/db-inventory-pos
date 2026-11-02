@@ -38,7 +38,7 @@ class InventoryLedgerExport implements FromCollection, WithHeadings, WithMapping
                 'unit',
                 'source',
             ])
-            ->where('id', $this->recordId)
+            ->where('product_id', $this->recordId)
             ->when($this->outletId, function ($q) {
                 return $q->where('outlet_id', $this->outletId);
             })
